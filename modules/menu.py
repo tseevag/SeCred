@@ -67,11 +67,11 @@ def landing_window():
 
     display_title("Welcome to SecRed")
 
-    print("Choose a option (press 'exit' ro exit SeCred)")
+    print("Choose a option (press 'exit' to exit SeCred)")
     
     while True:
-        print("[1] sign up")
-        print("[2] login")
+        print("[1] Sign Up")
+        print("[2] Login")
 
         choise = input("> ").lower()
 
