@@ -1,3 +1,11 @@
 # for global variables
+WINDOW_WIDTH = 80              #in character
+ALLOWED_LOGIN_ATTEMPTS = 3
 
-global user
+CURRENT_USER = None
+
+
+
+
+user_name = 'youn'
+password = 'secret'
