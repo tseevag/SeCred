@@ -1,10 +1,12 @@
 import getpass
 from getch import getch
 
+import config
 from data import User
 from modules import menu
 from modules.error import *
-
+from modules.db import find_user
+from modules.crypto import crypto_hash
 
 def signup():
     """Returns:
@@ -12,28 +14,38 @@ def signup():
      else None
      """
     menu.display_title("sign up")
-    unmatch_count = 0
 
     try:
         first_name = input("First Name: ").split()[0]
         last_name = input("Last Name: ").split()[0]
-        uname = input("User Name: ")
-
-        # if uname_exits:
         
-        while (unmatch_count < 3):
+        
+        while True:
+            uname = input("User Name: ")
+
+            if find_user.get_user(uname):
+                print("Username already taken ! Please choose another.")
+                continue
+            else:
+                break
+
+        
+        while True:
             passwd = getpass.getpass()
             confirm_passwd = getpass.getpass(prompt="Confirm Password: ")
 
             if(passwd == confirm_passwd):
-                #generate password hash
+                salt, hashed_passwd = crypto_hash.gen_hash(passwd)
                 #update database
+                config.user['uname'] = uname
+                config.user['salt'] = salt
+                config.user['passwd'] = hashed_passwd
+
                 return User.User(2, uname)
 
             else:
                 print("Sorry, passwords do not match!")
-                unmatch_count += 1
-
+                continue
         else:
             raise SignupFailedError
 

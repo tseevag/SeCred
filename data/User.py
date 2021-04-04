@@ -1,4 +1,5 @@
 class User:
+    """Logged in user"""
     def __init__(self, uid, uname):
         self._uid = uid
         self._uname = uname
