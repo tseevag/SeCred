@@ -6,11 +6,12 @@ from data import User
 from modules import menu
 from modules.error import *
 from modules.db import find_user
+from modules.db import db_operations
 from modules.crypto import crypto_hash
 
 def signup():
-    """Returns:
-     currently if sign up successfull
+    """Returns:\n
+     currently if sign up successfull\n
      else None
      """
     menu.display_title("sign up")
@@ -36,12 +37,13 @@ def signup():
 
             if(passwd == confirm_passwd):
                 salt, hashed_passwd = crypto_hash.gen_hash(passwd)
-                #update database
-                config.user['uname'] = uname
-                config.user['salt'] = salt
-                config.user['passwd'] = hashed_passwd
+                
+                uid = db_operations.add_user(first_name, last_name,uname, salt, hashed_passwd)
 
-                return User.User(2, uname)
+                if(uid):
+                    return User.User(uid, uname)
+                else:
+                    return None
 
             else:
                 print("Sorry, passwords do not match!")

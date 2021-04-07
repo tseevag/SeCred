@@ -1,10 +1,11 @@
 import os
 from dotenv import load_dotenv
 from mysql.connector import connect, Error
+from modules.exit_utils import exit_program
 
-def execute_func(func):
+def exec_func(func):
     """
-    Argument: function which executes database query
+    Argument: function which takes connection object as argument and executes database query\n
     Return: result of query
     """
     load_dotenv('.env')
@@ -22,10 +23,12 @@ def execute_func(func):
             database = db
 
         ) as connection:
-            with connection.cursor() as cursor:
-                result = func(cursor)
-                return result
+            result = func(connection)
+            return(result)
 
     except Error:
-        print("Unable to connect to database"):
+        print("Unable to connect to database !")
+        print("Please check your connection to database or contact dabase administrator.")
+    
+        exit_program()
 

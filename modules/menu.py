@@ -10,7 +10,7 @@ from modules.exit_utils import exit_program
 clear = lambda: os.system("clear")
 
 def display_title(title_string):
-    clear()
+    # clear()
     window_width = config.WINDOW_WIDTH
     space_count = math.floor( (window_width/2) - (len(title_string)/2) ) 
 
@@ -25,6 +25,9 @@ def prompt_menu():
 
     return value: choise of operation
     """
+    if(config.CURRENT_USER == None):
+        return
+
     switcher = {
         '1': operations.add_record,
         '2': operations.update_record,
