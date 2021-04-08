@@ -4,17 +4,20 @@ from modules.exit_utils import exit_program
 
 
 def main():
-    current_user = config.CURRENT_USER
+    while True:
+        current_user = config.CURRENT_USER
 
-    while(current_user == None):
-        func = menu.landing_window()
-        current_user = func() 
+        while(current_user == None):
+            func = menu.landing_window()
+            current_user = func() 
 
-        config.CURRENT_USER = current_user
+            config.CURRENT_USER = current_user
 
-    else:
-        func = menu.prompt_menu()
-        func()
+        else:
+            func = menu.prompt_menu()
+            func()
+            
+        continue
 
 if __name__ == "__main__":
     try:

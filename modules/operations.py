@@ -1,6 +1,5 @@
 import os
 
-import secred
 import config
 from modules import menu
 
@@ -27,4 +26,4 @@ def delete_account():
 
 def logout():
     config.CURRENT_USER = None
-    secred.main()
+    return
