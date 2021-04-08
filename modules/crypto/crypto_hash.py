@@ -4,7 +4,7 @@ import hashlib
 import config
 
 def gen_salt():
-    """Generate random bytes"""
+    """Generate random bytes of size SALT_SIZE"""
 
     salt_size = config.SALT_SIZE
     return os.urandom(32)
@@ -12,8 +12,9 @@ def gen_salt():
 
 
 def gen_hash(plain_pass, salt=gen_salt()):
-    """Generate hash of given plain text password
-    Return: (salt, hash)
+    """Generate hash of given plain text password\n
+    Arguments: plain password,  b'salt\n
+    Return: (b'salt,  b'hash)
     """
 
     algorith = config.HASH_ALGORITHM

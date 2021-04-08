@@ -1,15 +1,29 @@
 import config
+from modules.db import connect
 
 def get_user(uname):
-    if uname == config.user['uname']:
-        return config.user
+    query = f"""
+    SELECT uid, uname, HEX(salt), HEX(passwd) FROM users WHERE uname='{uname}'
+    """
+    def query_func(conn):
+        cursor = conn.cursor()
+        cursor.execute(query)
+        result = cursor.fetchone()
+        return result
+
+
+    user = connect.exec_func(query_func)
+
+    if(user != None):
+        return user  
     else:
         return None
 
 
 def get_dummy_user():
-    return {
-        'uname': 'dummy_user',
-        'salt': b'\xed\x82\x03\x01\xaaH\xdf\x83!\xc1\xe4\x10L\xc6-5\xb6lS\xf9\xaa\x8f\xa3\x05\xec\xcb[J\x87\xf09\xb1',
-        'passwd': 'super-secret'
-    }
+    user = (0, 'user',\
+        '583e549c996c95371993a4e29ea222d47ecdb96bd38c69cb4eb8d2d4fb4353b0',\
+        'c753199d53073bc2277cf8c9459cdcc56ac50f9d3e86c2ec48de079c37ca18221d742e61ab4941db4a1851430f9305500bba5607ef5e787df4f0b5b8aa46ca01'\
+        )
+
+    return user

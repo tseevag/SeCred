@@ -14,12 +14,17 @@ def verify_credential(input_uname, input_passwd):
     """
     user = find_user.get_user(input_uname)
 
-    if(not user):               #time based attack prevention 
+    if(user == None):               #time based attack prevention 
         user = find_user.get_dummy_user()
 
-    _, hashed_input_passwd = crypto_hash.gen_hash(input_passwd, user['salt'])  
+    salt = bytes.fromhex(user[-2])
+    passwd_hash = user[-1]
 
-    if(user['passwd'] == hashed_input_passwd):
+    _, hashed_input_passwd = crypto_hash.gen_hash(input_passwd, salt)  
+
+    hashed_input_passwd = hashed_input_passwd.hex()
+
+    if(passwd_hash.lower() == hashed_input_passwd.lower()):
         return True
 
     else:

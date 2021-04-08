@@ -15,20 +15,20 @@ def exec_func(func):
     user = os.getenv('DB_USER')
     password = os.getenv('DB_PASSWORD')
 
-    try:
-        with connect(
-            host = host,
-            user = user,
-            password = password,
-            database = db
+    # try:
+    with connect(
+        host = host,
+        user = user,
+        password = password,
+        database = db
 
-        ) as connection:
-            result = func(connection)
-            return(result)
+    ) as connection:
+        result = func(connection)
+        return(result)
 
-    except Error:
-        print("Unable to connect to database !")
-        print("Please check your connection to database or contact dabase administrator.")
+    # except Error:
+    #     print("Unable to connect to database !")
+    #     print("Please check your connection to database or contact dabase administrator.")
     
-        exit_program()
+    #     exit_program()
 
