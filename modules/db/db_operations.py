@@ -78,3 +78,24 @@ def update_file(uid, content):
         return
 
     connect.exec_func(query_func)
+    return
+
+
+
+def delete_account(uid):
+    query1 = f"""
+    DELETE FROM files WHERE uid={uid}
+    """
+    query2 = f"""
+    DELETE FROM users WHERE uid={uid}
+    """
+
+    def query_func(conn):
+        with conn.cursor() as cursor:
+            cursor.execute(query1)
+            cursor.execute(query2)
+        conn.commit()
+        return
+
+    connect.exec_func(query_func)
+    return

@@ -1,4 +1,3 @@
-from data.User import User
 #global variables
 
 # display

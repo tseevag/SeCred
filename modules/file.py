@@ -7,6 +7,12 @@ class File:
         self._enc_key = enc_key
         self._content = content.decode()
       
+    def content_to_list(self):
+        return json.loads(self._content)
+
+    def update_content(self, records):
+        self._content = json.dumps(records)
+        return self._content
     
     def make_physical(self):
         self._dirpath = tempfile.mkdtemp()
@@ -20,7 +26,7 @@ class File:
 
     def add_record(self, site, uname, passwd):
         """Return: updated content"""
-        content_list = json.loads(self._content)
+        content_list = self.content_to_list()
 
         if (content_list == None):
             content_list = []
@@ -31,15 +37,28 @@ class File:
             'passwd': passwd
             })
 
-        self._content = json.dumps(content_list)
+        return self.update_content(content_list)
+
+
+    def delete_record(self, site):
+        records = self.content_to_list()
+
+        site_record = self.get_site_record(site)
+
+        records.remove(site_record)
+
+        self.update_content(records)
 
         return self._content
 
 
-        
-    def get_records(self):
-        """Return: List of Dictories containing recored"""
-        return self._content
+    def get_site_record(self, site):
+        content_list = self.content_to_list()
+
+        for record in content_list:
+            if(site.lower() == record['site'].lower()):
+                return record
+
 
     def delete_physical(self):
         shutil.rmtree(self._dirpath)

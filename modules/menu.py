@@ -29,11 +29,13 @@ def prompt_menu():
         return
 
     switcher = {
-        '1': operations.add_record,
-        '2': operations.update_record,
-        '3': operations.delete_record,
-        '4': operations.delete_account,
-        '5': operations.logout,
+        '1': operations.view_record,
+        '2': operations.view_all_records,
+        '3': operations.add_record,
+        '4': operations.update_record,
+        '5': operations.delete_record,
+        '6': operations.delete_account,
+        '7': operations.logout,
         'exit': exit_program
     }
     
@@ -41,11 +43,13 @@ def prompt_menu():
 
     while True:
         print("Choose an option (enter 'exit' to exit SeCred)")
-        print("[1] Add new record")
-        print("[2] Update existing record")
-        print("[3] Delete existing record")
-        print("[4] Delete account and all related information")
-        print("[5] Logout")
+        print("[1] View site record")
+        print("[2] View all records")
+        print("[3] Add new record")
+        print("[4] Update existing record")
+        print("[5] Delete existing record")
+        print("[6] Delete account and all related information")
+        print("[7] Logout")
         print()
         print("Enter your choise")
 
@@ -63,8 +67,8 @@ def landing_window():
     Return: choise"""
     
     switcher = {
-            '1': signup.signup,
-            '2': login.login,
+            '1': login.login,
+            '2': signup.signup,
             'exit': exit_program
         }
 
@@ -73,8 +77,8 @@ def landing_window():
     print("Choose a option (press 'exit' to exit SeCred)")
     
     while True:
-        print("[1] Sign Up")
-        print("[2] Login")
+        print("[1] Login")
+        print("[2] Sign Up")
 
         choise = input("> ").lower()
 
