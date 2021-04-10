@@ -2,6 +2,9 @@ import config
 from modules.db import connect
 
 def get_user(uname):
+    """Argument: uname\n
+    Return: (uid, uname, 0xsalt, 0xpasswd)
+    """
     query = f"""
     SELECT uid, uname, HEX(salt), HEX(passwd) FROM users WHERE uname='{uname}'
     """

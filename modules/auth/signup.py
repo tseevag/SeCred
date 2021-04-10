@@ -39,6 +39,7 @@ def signup():
                 salt, hashed_passwd = crypto_hash.gen_hash(passwd)
                 
                 uid = db_operations.add_user(first_name, last_name,uname, salt, hashed_passwd)
+                db_operations.create_file_record(uid)
 
                 if(uid):
                     return User.User(uid, uname)

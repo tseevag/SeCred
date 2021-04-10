@@ -1,3 +1,4 @@
+from data.User import User
 #global variables
 
 # display
@@ -14,12 +15,3 @@ ITERATIONS = 1000000
 
 # runtime user
 CURRENT_USER = None
-
-
-
-#dummy database
-user = {
-    'uname': '',
-    'salt': '',
-    'passwd': ''
-}
